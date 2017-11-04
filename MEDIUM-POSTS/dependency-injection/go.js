@@ -1,3 +1,10 @@
+// to run this example you've to use the mocha npm package
+// install it using:
+// npm install mocha --global
+// It's possible that the installation crashes because of missing privileges
+// than try adding a "sudo" befor the command
+// sudo npm install mocha --global
+
 var assert = require('assert');
 
 function toBeInjected(fetch, item) {
