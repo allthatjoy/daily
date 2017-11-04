@@ -1,0 +1,198 @@
+With ECMAScript 6 two new keywords for variable declarations were introduced.
+
+Besides "var" there's now "let" and "const".
+
+But what are the exact differences between those three keywords?
+
+You've to know one general thing about JavaScript at first to understand all
+the following examples and that is, that JavaScript assigns all "var" declared
+variables to the closest function scope.
+
+What does that mean: Basically a scope is the area of your code where the
+declared variable is "visible" and could be used.
+
+
+
+At first you've to know what's "var" to recognise the difference to the other
+keywords.
+
+Let's start with some samples:
+
+The first example is just a simple "var" declaration with an intial value of 1
+There is nothing that could crash that code.
+
+var a = 1;
+console.log('a', a);
+
+
+"i" without a declaration within the function will be assigned to the global
+scope and the output will work as expected
+(The global scope is nothing else than a anonymous self executing function
+around the whole code)
+
+(function(){
+  i = 1;
+})();
+console.log('i', i);
+
+
+The next example gives you a good insight of what function scope means.
+"j" is declared within the function which assigns j to the wrapping function
+and "j" won't be available for the output below.
+
+(function(){
+  var j = 1;
+})();
+console.log('j', j);
+
+
+"b" is declared and initialised within the for-loop but is assigned to the
+function scope which makes it again available within the whole function after
+the for-loop
+
+(function(){
+  for (var b = 0; b < 10; b++) {
+    console.log('iteration of b:', b);
+  }
+  console.log('b', b);
+})();
+
+
+
+Let's go to "let" again with samples for better understanding.
+
+The keyword "let" will assign the variable to the surrounding scope which
+doesn't have to be a function scope and that's also the biggest difference to
+"var", which makes it very useful!
+
+
+This example will work as expected.
+Just a simple declaration using "let" with an initialisation of 1
+
+let a = 1;
+console.log('a', a);
+
+
+"i" is declared as "let" which assigns the variable to the surrounding
+function scope and the output of "i" will crash because it's not defined
+within the global scope.
+
+(function(){
+  let i = 1;
+})();
+console.log('i', i);
+
+
+The next example is one of the best ways to show the difference between "var"
+and "let" because the variable "b" won't be available to the output other than
+in the "var" example before and the reason to that is because the "let"
+variable will be assigned to the for-loop scope instead of to the
+function scope surrounding the whole code
+
+(function(){
+  for (let b = 0; b < 10; b++) {
+    console.log('iteration of b:', b);
+  }
+  console.log('b', b);
+})();
+
+
+
+Next: const
+The keyword "const" could be compared to "let" but with on big difference:
+a "const" variable couldn't be completely reassigned
+
+
+This example again will work as expected.
+const a = 1;
+console.log('a', a);
+
+
+But if you try to assign another value to the "const" declared variable
+you'll get an assignment error because you can't change the value of a
+"const" declared variable
+
+const b = 1;
+b = 2;
+console.log('b', b);
+
+
+But what means the "couldn't be completely reassigned" in my "const"
+introduction?
+
+Declare a variable with "const" and initialise it with an object.
+The output is as expected the object.
+
+const c = {
+  hello: "world!"
+}
+
+console.log('c.hello', c.hello);
+
+
+but what's if we try to change the property "hello" within the object?
+It'll work even if you've declared "c" as "const".
+
+c.hello = "Ben";
+
+console.log('c.hello', c.hello);
+
+
+but if we try to assign a completely new object to "c", we'll get an
+assignment error again!
+
+c = {
+  test: "value"
+}
+
+console.log('c.hello', c.test);
+
+
+"i" is declared as "const" and like "let" the variable will be assigned to
+the surrounding scope which is in this case a function scope
+The output of "i" will crash because the variable is not defined within the
+global scope.
+
+(function() {
+  const i = 1;
+})()
+console.log('i', i);
+
+
+Other than in the "let" example we can't use the for-loop anymore because
+it would try to change the const j which would result in an error,
+instead we're using an if-statement with "true" as condition
+("true" as if-condition will always lead to an execution of the code within
+the if-statement)
+"j" will now assigned to the surrounding scope which is the if-statement
+and won't be available to the output afterwards
+
+if (true) {
+  const j = 1;
+}
+console.log('j', j);
+
+
+
+I hope there is now one big question after you've learned the
+differences of var, let and const.
+
+Question:
+Why and when should I use "var" in the future?
+
+Answer:
+You shouldn't because there isn't a reason anymore in ECMAScript6 to use "var".
+As a programmer you always should use variables in the smallest possible scope,
+also called mutable state minimisation, to prevent unexpected and
+even strange behaviour as in example 2 of "var":
+
+(function(){
+  i = 1;
+})();
+console.log('i', i);
+
+If you're not aware of behaviour like that you can fall in trap doors leading
+to unnecessary debugging time even if your code syntax isn't wrong at all!
+
+So, take care of you variable scopes and use "let" and "const" instead of "var",
+you're colleagues will thank you ;)
