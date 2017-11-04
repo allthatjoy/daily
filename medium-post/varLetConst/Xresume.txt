@@ -1,0 +1,19 @@
+I hope there is one big question after you've learned the
+differences of var, let and const.
+
+Question:
+Why and when should I use "var" in the future?
+
+Answer:
+You shouldn't because there isn't a reason anymore in ECMAScript6 to use "var".
+As a programmer you always should use variables in the smallest possible scope,
+also called mutable state minimization, to prevent unexpected and
+even strange behaviour as in example 2 of "var":
+
+(function(){
+  i = 1;
+})();
+console.log('i', i);
+
+If you're not aware of behaviour like that you can fall in trap doors leading
+to unnecessary debugging time even if your code syntax isn't wrong at all!

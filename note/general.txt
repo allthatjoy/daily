@@ -1,0 +1,25 @@
+NEXT MEDIUM POST IS ABOUT PROMISES
+
+
+
+https://www.npmjs.com/package/helmet
+
+Always use 'strict mode'
+
+fast-json-stringify
+
+http-router: find-my-way
+
+https://github.com/delvedor/router-benchmark
+
+https://github.com/fastify/fastify
+
+Express Performance Optimization:
+app.disable("etag").disable("x-powered-by")
+
+AutoCannon
+Ox (Flame Graphs)
+
+https://codeburst.io/javascript-learn-promises-f1eaa00c5461
+https://github.com/i0natan/nodebestpractices
+https://medium.freecodecamp.org/modern-frontend-hacking-cheatsheets-df9c2566c72a
