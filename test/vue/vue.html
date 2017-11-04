@@ -44,4 +44,21 @@ const vueFactory = ({wrapperIdentifier, placeholder, value}) => {
 // anotherOne.anotherOnePlaceholder = 'yeah haaa!!!'
 let app = vueFactory({wrapperIdentifier: '#app', placeholder: 'message', value: 'Hello Vue.js!'});
 let anotherOne = vueFactory({wrapperIdentifier: '.anotherOneButItsAClass', placeholder: 'anotherOnePlaceholder', value: 'yeah'});
+
+
+
+// the function (which is btw. a so called anonymous self executing function)
+// will replace the default app and anotherOne text with the current timestamp
+// and a simple message about the behaviour
+(() => {
+  setInterval(() => {
+    app.message = 'current timestamp: ' + Date.now();
+    // if added the following line within the interval because otherwise you
+    // can't see the initial message of anotherOne (you shouldn't do this in
+    // production because even the following static text would be refreshed on
+    // the UI every second which is useless but still takes performance from
+    // your app)
+    anotherOne.anotherOnePlaceholder = 'Timestamp will be refreshed every second!';
+  }, 1000);
+})()
 </script>
