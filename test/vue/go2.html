@@ -1,0 +1,31 @@
+<!-- TOPIC: binding DOM-element attributes -->
+
+<!-- IMPORT VUE EXTERNALLY (IF YOU'RE RUNNING IN PRODUCTION ALWAYS HOST JS FILES
+      ON YOUR OWN SERVER AND INPORT IT LOCALLY TO OPTIMIZE PAGE SPEED AND TO BE
+      INDEPENDANT OF OTHER SERVER BEHAVIOUR) -->
+<script src="https://unpkg.com/vue"></script>
+
+<!-- HTML STRUCTURE -->
+<!-- This time we're using the vue attribute binding -->
+<!-- As you can see we also can use the variable multiple times for
+      different attributes -->
+<div id="go2" v-bind:title="elementTitle" v-bind:data-anotherOne="elementTitle">
+  <p>{{message}}</p>
+</div>
+
+
+<script>
+  // To test the databinding use:
+  // go2.message = "test1";
+  // for the "message" variable or
+  // go2.elementTitle = "test2";
+  // for the DOM attribute values
+
+  const go2 = new Vue({
+    el: '#go2',
+    data: {
+      message: 'Hello Vue.js!',
+      elementTitle: 'I\'m the title content!'
+    }
+  })
+</script>
