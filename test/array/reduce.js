@@ -4,6 +4,13 @@
 // [1,2] => 3
 
 
+
+// I'll use arrow function expressions within this example, if you're not
+// familiar with them see:
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
+
+
+
 // create an numeric array at first:
 const input = [20, 10, 5, 50]
 
