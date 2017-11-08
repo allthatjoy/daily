@@ -1,0 +1,80 @@
+<!-- TOPIC: binding single variables -->
+
+<!-- OPEN MY IN YOUR WEBBROWSER! (I PREFER CHROME) -->
+
+<!-- IMPORT VUE EXTERNALLY (IF YOU'RE RUNNING IN PRODUCTION ALWAYS HOST JS FILES
+      ON YOUR OWN SERVER AND INPORT IT LOCALLY TO OPTIMIZE PAGE SPEED AND TO BE
+      INDEPENDANT OF OTHER SERVER BEHAVIOUR) -->
+<script src="https://unpkg.com/vue"></script>
+
+
+<!-- Build a simple html structure with two vue placeholders
+      (message and andotherOne in my case) -->
+<div id="app">
+  <p>{{message}}</p>
+</div>
+<div class="anotherOneButItsAClass">
+  <p>{{ anotherOnePlaceholder }}</p>
+</div>
+
+
+<script>
+  // create a function to simply create new vue objects
+  // As you hopefully see I'm using ECMAScript 6 with the new
+  // keywords (let and const) as well as new features like code destructuring
+  // which can be very helpful in some cases
+  // I've used it in this case just for educational use because it's not really
+  // helpful or necessary in this case.
+  const vueFactory = ({
+    wrapperIdentifier,
+    placeholder,
+    value
+  }) => {
+    let vueObject = {
+      el: wrapperIdentifier,
+      data: {}
+    };
+    vueObject.data[placeholder] = value;
+    return new Vue(vueObject)
+  }
+
+  // The following two lines generate new vue objects via the vueFactory function.
+  // app and anotherOne will be available within your webbrowser JS console.
+  // Other than normal templating engines vue will create a connection between the
+  // object and the DOM element which makes it possible to change the value within
+  // the DOM without using expesive DOM manipulation functions within JQuery or
+  // any frameworks like that
+
+  // to try the connection beween the following object and the DOM above
+  // execute the following command within your webbrowser JS console:
+  // app.message = "Woooow!"
+  // or use:
+  // anotherOne.anotherOnePlaceholder = 'yeah haaa!!!'
+  let app = vueFactory({
+    wrapperIdentifier: '#app',
+    placeholder: 'message',
+    value: 'Hello Vue.js!'
+  });
+  let anotherOne = vueFactory({
+    wrapperIdentifier: '.anotherOneButItsAClass',
+    placeholder: 'anotherOnePlaceholder',
+    value: 'yeah'
+  });
+
+
+
+  // the function (which is btw. a so called anonymous self executing function)
+  // will replace the default app and anotherOne text with the current timestamp
+  // and a simple message about the behaviour
+  (() => {
+    setInterval(() => {
+      app.message = 'current timestamp: ' + Date.now();
+      // if added the following line within the interval because otherwise you
+      // can't see the initial message of anotherOne (you shouldn't do this in
+      // production because even the following static text would be refreshed on
+      // the UI every second which is useless but still takes performance from
+      // your app)
+      anotherOne.anotherOnePlaceholder = 'Timestamp will be refreshed every second!';
+    }, 1000);
+  })()
+</script>
