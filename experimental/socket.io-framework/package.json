@@ -1,0 +1,29 @@
+{
+  "name": "socket.io-framework",
+  "version": "1.0.0",
+  "description": "Sample use cases of socket.io (the npm package)",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timhaag/daily.git"
+  },
+  "keywords": [
+    "socket.io",
+    "websockets"
+  ],
+  "author": "Tim Haag",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/timhaag/daily/issues"
+  },
+  "homepage": "https://github.com/timhaag/daily#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "request": "^2.83.0",
+    "socket.io": "^2.0.4"
+  }
+}
