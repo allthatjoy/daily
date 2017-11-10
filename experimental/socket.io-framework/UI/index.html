@@ -46,16 +46,31 @@
 
   <footer class="footer">
     <div class="container">
-      <span class="text-muted">Developed within 1 hour. Sourcecode: <a href="https://github.com/timhaag/daily/tree/master/experimental/socket.io-framework" target="_blank">GitHub</a> Creator:<a href="https://timhaag.de/" target="_blank">Tim Haag</a></span>
+      <span class="text-muted">Sourcecode: <a href="https://github.com/timhaag/daily/tree/master/experimental/socket.io-framework" target="_blank">GitHub</a> Creator:<a href="https://timhaag.de/" target="_blank">Tim Haag</a></span>
     </div>
   </footer>
 
-  <script src="/js/jquery.slim.min.js"></script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/pusher.min.js"></script>
   <script src="/js/tether.min.js"></script>
   <script src="/js/bootstrap.min.js"></script>
   <script src="/js/socket.io.js"></script>
   <script type="text/javascript">
     var socket = io('http://localhost:3000')
+
+    var placeholder = $('#orders_placeholder'),
+      pusher = new Pusher('de504dc5763aeef9ff52'),
+      ordersChannel = pusher.subscribe('live_orders');
+
+      $.each(['order_created', 'order_changed', 'order_deleted'], function (eventIndex, eventName) {
+				ordersChannel.bind(eventName, function (data) {
+          console.log(data);
+					if ($('ol li').length > 30) {
+						placeholder.find('li:first').remove();
+					}
+					placeholder.append('<li>[' + eventName + '] (' + data.datetime + ') ' + data.id + ': ' + data.amount + ' BTC @ ' + data.price + ' USD ' + ((data.order_type == 0) ? 'BUY' : 'SELL') + '</li>');
+				});
+			});
 
     socket.on('newPrice', data => {
       document.title = data.last
