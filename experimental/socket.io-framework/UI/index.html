@@ -12,10 +12,10 @@
 <body>
   <div class="container">
     <div class="row">
-      <div class="col-12" id="currentValueWrapper">Current value: <span id="lastValue">-</span></div>
+      <div class="col-12" id="currentValueWrapper">Current value: <span id="lastValue">-</span><div>Own current value: <input id="ownCurrentValue"/></div></div>
       <div class="form-group col-xs-12 col-md-6">
         <label for="boughtFor">Bought for price:</label>
-        <input type="text" class="form-control" id="boughtFor" value="6225">
+        <input type="text" class="form-control" id="boughtFor" value="5850">
       </div>
       <div class="form-group col-xs-12 col-md-6">
         <label for="tradeFee">Trade fee in %:</label>
@@ -23,7 +23,7 @@
       </div>
       <div class="form-group col-xs-12 col-md-6">
         <label for="euroAmount">EURO amount in:</label>
-        <input type="text" class="form-control" id="euroAmountIn" value="1747.58">
+        <input type="text" class="form-control" id="euroAmountIn" value="1652.21">
       </div>
       <div class="form-group col-xs-12 col-md-6">
         <label for="euroAmount">BTC:</label>
@@ -71,12 +71,24 @@
 					placeholder.append('<li>[' + eventName + '] (' + data.datetime + ') ' + data.id + ': ' + data.amount + ' BTC @ ' + data.price + ' USD ' + ((data.order_type == 0) ? 'BUY' : 'SELL') + '</li>');
 				});
 			});
+      $(document).on('keyup', '#ownCurrentValue', () => {
+        go($('#ownCurrentValue').val())
+      })
 
     socket.on('newPrice', data => {
       document.title = data.last
 
       let currentPrice = data.last;
 
+      if($('#ownCurrentValue').val().length > 0) {
+        currentPrice = $('#ownCurrentValue').val()
+      }
+
+      go(currentPrice)
+
+    })
+
+    function go(currentPrice) {
       let euroAmountIn = $('#euroAmountIn').val()
       // let btcAmountOut = $('#btcAmountOut').val()
       let boughtFor = $('#boughtFor').val()
@@ -101,9 +113,8 @@
 
       $('#returnResult').val(returnValue - $('#euroAmountIn').val())
 
-      $('#lastValue').html(data.last)
-
-    })
+      $('#lastValue').html(currentPrice)
+    }
   </script>
 </body>
 

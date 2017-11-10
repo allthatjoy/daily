@@ -23,6 +23,8 @@
   "homepage": "https://github.com/timhaag/daily#readme",
   "dependencies": {
     "express": "^4.16.2",
+    "mongoose": "^4.13.1",
+    "pusher-js": "^4.2.1",
     "request": "^2.83.0",
     "socket.io": "^2.0.4"
   }
