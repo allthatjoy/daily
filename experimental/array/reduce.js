@@ -47,3 +47,33 @@ console.log('anotherSumWithInitialValue', anotherSumWithInitialValue);
 // Especially if your input array, which should be reduced, is depending on an
 // user input you either have to handle the case if the array is empty or you
 // set the second parameter for the reduce function
+
+
+// How to handle objects using Array.reduce()
+// To start, we got an array containing country objects with a name and the
+// popularity number
+const countries = [{
+    country: 'China',
+    pop: 1409517397,
+  },
+  {
+    country: 'India',
+    pop: 1339180127,
+  },
+  {
+    country: 'USA',
+    pop: 324459463,
+  },
+  {
+    country: 'Indonesia',
+    pop: 263991379,
+  }
+]
+
+// We now want to reduce our array to a single value which should be the result
+// of all popularities expect from USA
+const allCountriesButChina = countries.reduce((prev, curr) => {
+  return curr.country !== 'USA' ? prev + curr.pop : prev;
+}, 0)
+
+console.log(allCountriesButChina);
