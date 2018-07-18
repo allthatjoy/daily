@@ -1,7 +1,33 @@
+const expressRouter = require('express').Router()
+
+const instagram = require('./instagramOauthCodeExchange')
+
+const {
+  instagramClientId,
+  instagramClientSecret,
+  instagramRedirectURI,
+  isThereValue,
+  sendErrorReport
+} = require('./utility')
+
+expressRouter.post('/feed', (req, res) => {
+  instagram.getGalleryFeed()
+  .then(response => {
+    const items = response.data.map(item => ({image: item.images.standard_resolution.url, caption: item.caption.text, id: item.id, url: item.link}))
+    res.json({status: true, items})
+  })
+  .catch(err => {
+    if (err) {
+      sendErrorReport(`bakcend/api/instagram - /feed - Error while calling the getGalleryFeed-function within the backend/helper/instagram-script | Err: ${err}`)
+    }
+    res.json({status: false})
+  })
+})
+
 /*
-  This code snipped is used to provide a get-interface to either get
+  This GET-endpoint (/oauthCode) is used to get
   instructions on how to call the instagram url to get redirected with a unique
-  authentication code or to validate and exchange the given code to get the
+  authentication code and to validate and exchange the given code to get the
   access_token which is used to access all of instagram's API functionality
 
   The first line within the callback-function of this api endpoint:
@@ -38,3 +64,5 @@ expressRouter.get('/oauthCode', (req, res) => {
     res.send(`call: https://api.instagram.com/oauth/authorize/?client_id=${instagramClientId}&redirect_uri=${instagramRedirectURI}&response_type=code`)
   }
 })
+
+module.exports = expressRouter

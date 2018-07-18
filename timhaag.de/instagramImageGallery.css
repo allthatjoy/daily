@@ -1,0 +1,15 @@
+#instagramGallery .instagramGalleryItem {
+  cursor: pointer;
+  max-width: 100%;
+  border: 3px solid white;
+  margin-bottom: 20px;
+}
+
+#instagramGallery .instagramGalleryItem:hover {
+  border: 3px solid rgb(38, 56, 68);
+}
+
+#instagramFeedGalleryWrapper {
+  margin-left: auto;
+  margin-right: auto;
+}

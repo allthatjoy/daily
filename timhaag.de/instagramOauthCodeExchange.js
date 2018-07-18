@@ -1,3 +1,40 @@
+const {
+  isThereValue,
+  sendErrorReport
+} = require('../utility')
+
+const fetch = require('node-fetch')
+
+const FormData = require('form-data');
+
+const {set, get} = require('../helper/config')
+
+const getGalleryFeed = () =>
+  new Promise((resolve, reject) => {
+    get('access_token')
+    .then(accessToken => {
+      if (isThereValue(accessToken)) {
+        fetch(`https://api.instagram.com/v1/users/self/media/recent/?access_token=${accessToken}`)
+          .then(res => res.json())
+          .then(resolve)
+          .catch(err => {
+            if (err) {
+              sendErrorReport(`backend/helper/instagram - getGalleryFeed - Error while fetching url: ${url} | Err: ${err}`)
+            }
+            reject()
+          })
+      } else {
+        reject()
+      }
+    })
+    .catch(err => {
+      if (err) {
+          sendErrorReport(`backend/helper/instagram - getGalleryFeed - Error while calling the get-function within the backend/helper/config-script | Err: ${err}`)
+      }
+      reject()
+    })
+  })
+
 const oauth = (clientId, clientSecret, code, redirectURI) =>
   new Promise((resolve, reject) => {
     const formData = new FormData();
@@ -35,3 +72,9 @@ const oauth = (clientId, clientSecret, code, redirectURI) =>
         reject()
       })
   })
+
+
+module.exports = {
+  getGalleryFeed,
+  oauth
+}
