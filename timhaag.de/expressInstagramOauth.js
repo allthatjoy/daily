@@ -19,7 +19,8 @@
 
   If we finally received a "code" parameter, a function called oauth will be
   called (check out this script to get insights into that function:
-  )
+  https://github.com/timhaag/daily/blob/master/timhaag.de/instagramOauthCodeExchange.js)
+
 */
 
 expressRouter.get('/oauthCode', (req, res) => {
@@ -34,6 +35,6 @@ expressRouter.get('/oauthCode', (req, res) => {
         res.send('Error while refreshing the access_token')
       })
   } else {
-    res.send(`call: https://api.instagram.com/oauth/authorize/?client_id=${instagramClientId}&redirect_uri=http://localhost:5000/instagram/oauthCode&response_type=code`)
+    res.send(`call: https://api.instagram.com/oauth/authorize/?client_id=${instagramClientId}&redirect_uri=${instagramRedirectURI}&response_type=code`)
   }
 })
