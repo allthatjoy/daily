@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import fetch from 'node-fetch'
-import {sendErrorReport, isThereMulti} from '../utility'
+import {sendErrorReport, isThereMulti} from './utility'
 import './instagramImageGallery.css'
 
 import InstagramFeedGalleryItem from './InstagramFeedGalleryItem'
